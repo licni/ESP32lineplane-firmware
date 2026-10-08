@@ -12,6 +12,22 @@
 
 MPU6050 的 SDA 接 **GPIO5**、SCL 接 **GPIO6**。
 
+## 全新開發板第一次燒錄
+
+自己買 ESP32-C3 SuperMini 開發板來做的,第一次要把**完整燒錄檔**燒進去(裡面有開機程式、分割表和韌體)。燒過一次之後,以後都用下面的「檢查更新」。
+
+1. 到 [Releases 最新版](https://github.com/licni/ESP32lineplane-firmware/releases/latest) 下載完整燒錄檔:
+   - 普通版:`lineplane-full-版本.bin`
+   - 帶螢幕板(0.42 吋 OLED):`lineplane-full-版本-oled.bin`
+2. 用電腦的 Chrome 或 Edge 打開 Espressif 官方網頁燒錄工具:https://espressif.github.io/esptool-js/
+3. 開發板用 USB 接電腦,Baudrate 選 921600,按「Connect」,選開發板的序列埠(USB JTAG/serial debug unit)。
+   找不到或連不上時:按住板子上的 **BOOT** 鍵再插 USB,放開後再按 Connect。
+4. 先按「Erase Flash」清除整片(讓設定從出廠值開始)。
+5. Flash Address 填 **0x0**,選剛下載的檔案,按「Program」。
+6. 完成後拔掉 USB 再接上,板子就會開機,開 WiFi 熱點讓你設定。
+
+注意:完整燒錄檔**只給全新開發板**用,已經在用的板子不要用它(會清掉設定),請用「檢查更新」或「手動更新」。
+
 ## 怎麼更新(建議)
 
 1. 板子連上家用 WiFi(要能上網)。
@@ -47,6 +63,7 @@ MPU6050 的 SDA 接 **GPIO5**、SCL 接 **GPIO6**。
 | `manifest.json` | 最新版本資訊(版本、大小、SHA-256 檢查碼、韌體檔位置、更新說明),板子檢查更新時讀這個 |
 | `CHANGELOG.md` | 更新紀錄 |
 | `firmware/` | 韌體檔資料夾,只留最近 3 天(每天一個);更早的在 Releases 下載 |
+| Releases 的 `lineplane-full-*.bin` | 全新開發板第一次燒錄用的完整燒錄檔(從 0x0 燒) |
 
 請不要改檔名或搬動檔案,板子是依照 `manifest.json` 裡寫的位置下載。
 
