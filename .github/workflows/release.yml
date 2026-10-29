@@ -1,0 +1,24 @@
+# 自動建立 GitHub Release(2026-10-29,GG 授權):雲端的 Claude session 推得了韌體檔與 manifest,但不能建 Release,
+# 所以 manifest.json 推上 main 後由這裡建. 本機用 tools/publish_firmware.py 建好的話,這裡只會更新說明與補檔案(兩者相容).
+# 完整燒錄檔 lineplane-full-版本.bin = firmware/boot-0x0-0x10000.bin(開機程式 + 分割表 + boot_app0,各版相同)+ 韌體檔.
+name: 建立 Release
+on:
+  push:
+    branches: [main]
+    paths: ["manifest.json"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 組完整燒錄檔,建立或更新 Release,刪同一天的舊版
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: python3 .github/release.py
