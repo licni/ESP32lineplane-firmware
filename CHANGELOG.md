@@ -4,9 +4,9 @@
 
 ## 2026.11.02.2(2026-11-02)
 
-- **USB 設定通道**:電腦用「線控飛機設定器」LineplaneConfig.exe 接 USB 線,就能開板子上同一份設定網頁(不需要 WiFi),也能匯出/匯入板上全部設定備份. 設定器下載:https://github.com/licni/ESP32C3-lineplane/releases/latest/download/LineplaneConfig.exe
-- 網頁走 USB 線時(網址 127.0.0.1):「韌體更新」卡換成提示(更新請用設定器的燒錄頁);新韌體「待確認」不由 USB 網頁自動確認,要用 WiFi 開一次網頁確認(確認要證明新韌體的 WiFi 連得上). 其他功能與安全規則和 WiFi 完全相同.
-- 序列埠 RX 緩衝改 4KB;新序列指令格式「@Q …」給設定器用(見原始碼 web_server.cpp).
+- 可以用電腦接 USB 線設定飛控:用「線控飛機設定器」(LineplaneConfig.exe)打開和手機一樣的設定網頁,不需要 WiFi. 下載:https://github.com/licni/ESP32C3-lineplane/releases/latest/download/LineplaneConfig.exe
+- 設定器可以把板上全部設定匯出成檔案備份,之後再匯回板子.
+- 接 USB 線時,網頁的「韌體更新」改由設定器的「燒錄」頁負責;更新後的新韌體要用 WiFi 開一次網頁才算確認採用.
 
 ## 2026.10.30.3(2026-10-30)
 
